@@ -1,10 +1,10 @@
 #include<iostream>
 #include<string>
 
-void sea(); 
-void sky();
-void spaceship();
-void forest();
+void sea();			//1 
+void sky();			//2
+void spaceship();	//3
+void forest();		//4
 
 
 int main()
@@ -12,29 +12,30 @@ int main()
 
 std::cout << "Hello traveller, to continue our journey please pick where you want to go next " << std::endl;
 
-std::cout << "For the sea press [S], for the sky [Y], for the spaceship [space], for the forest [F]" << std::endl;
+std::cout << "For the sea press [1], for the sky [2], for the spaceship [3], for the forest [4]" << std::endl;
 std::cin >> Location;
 Location = toupper(Location);
 
 switch (Location)
 {
-case'S':
+case'1':
 	std::cout << "you chose the sea" << std::endl;
 	sea();
 	system("pause");
 	break;
 
-case'Y':
+case'2':
 	std::cout << "you chose the sky" << std::endl;
 	sky();
 	system("pause");
 	break;
-case ' ':
+case '3':
 	std::cout << "You chose the spaceship" << std::endl;
 	spaceship();
 	break;
-case 'F':
+case '4':
 	std::cout << "You chose th forest" << std::endl;
+	forest();
 	break;
 default:
 	std::cout << "oh c'mon" << std::endl;
@@ -44,22 +45,23 @@ system("pause");
 return 0;
 }
 
-void sea()
+void sea() //1
 {
 	std::cout << "You are swimming in the sea"<<std::endl;
+	system("pause");
 }
-
-
-void sky()
+void sky() //2
 {
 	std::cout << "You are falling from the sky into the sea" << std::endl;
-
+	system("pause");
 }
-void spaceship()
+void spaceship() //3
 {
 	std::cout << "You are standing in the spaceship" << std::endl;
+	system("pause");
 }
-void forest()
+void forest() //4
 {
 	std::cout << "You are standing in the forest" << std::endl;
+	system("pause");
 }
