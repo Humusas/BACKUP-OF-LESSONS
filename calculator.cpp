@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 
+void calculator();
 void add();
 void minus();
 void times();
@@ -33,23 +34,23 @@ int main()
 	std::cout << "5.SQUARE" << std::endl;
 	std::cout << "please enter your chosen function number" << std::endl;
 	std::cin >> action ;
-	action = toupper(action);
+	
 
 	switch (action)
 	{
-	case'1':
+	case 1:
 		add();
 		break;
-	case'2':
+	case 2:
 		minus();
 		break;
-	case'3':
+	case 3:
 		times();
 		break;
-	case'4':
+	case 4:
 		divide();
 		break;
-	case'5'():
+	case 5:
 		square();
 		break;   
 	default:
@@ -61,7 +62,7 @@ int main()
 }
 	
 
-void add()
+void add() //1
 	{
 		int sum;
 		sum = number1 + number2;
@@ -69,7 +70,7 @@ void add()
 		std::cout << std::endl;
 		system("pause");
 	}
-void minus()
+void minus()  //2
 	{
 		int dif;
 		dif = number1 - number2;
@@ -77,7 +78,7 @@ void minus()
 		std::cout << std::endl;
 		system("pause");
 	}
-void times()
+void times()  //3
 	{
 		int times;
 		times = number1 * number2;
@@ -85,23 +86,24 @@ void times()
 		std::cout << std::endl;
 		system("pause");
 	}
-void divide()
-{
-	int divid;
-	if (number2 == 0)
+void divide()  //4
 	{
-		std::cout << "can not divide by 0" << std::endl;
-		std::cout << std::endl;
+		int divid;
+		divid = 0;
+		if (number2 == 0)
+			{
+			std::cout << "can not divide by 0" << std::endl;
+			std::cout << std::endl;
+			system("pause");
+			}
+		else
+			divid = number1 / number2;
+			std::cout << "difference of numbers is " << divid << std::endl;
+			std::cout << std::endl;
 		system("pause");
 	}
-	else
-		divid = number1 / number2;
-		std::cout << "difference of numbers is " << divid << std::endl;
-		std::cout << std::endl;
-		system("pause");
-	}
-void square()
-{
+void square()  //5
+	{
 	int square;
 	for (number1; square = number1 * number1; number2--)
 	{

@@ -1,6 +1,8 @@
 #include<iostream>
 #include<string>
 
+
+
 void sea();			//1 
 void sky();			//2
 void spaceship();	//3
@@ -8,42 +10,57 @@ void forest();		//4
 
 
 int main()
-{char Location;
+{
+	char Location;
 
 std::cout << "Hello traveller, to continue our journey please pick where you want to go next " << std::endl;
 
-std::cout << "For the sea press [1], for the sky [2], for the spaceship [3], for the forest [4]" << std::endl;
+std::cout << "For the sea press [a], for the sky [b], for the spaceship [c], for the forest [d]" << std::endl;
 std::cin >> Location;
-Location = toupper(Location);
+Location = toupper(Location); //for lower letters to make upper case
 
 switch (Location)
 {
-case'1':
+case'A':
+{
 	std::cout << "you chose the sea" << std::endl;
 	sea();
 	system("pause");
 	break;
+}
 
-case'2':
+case'B':
+{
 	std::cout << "you chose the sky" << std::endl;
 	sky();
 	system("pause");
 	break;
-case '3':
+}
+
+case 'C':
+{
 	std::cout << "You chose the spaceship" << std::endl;
 	spaceship();
 	break;
-case '4':
+}
+
+case 'D':
+{
 	std::cout << "You chose th forest" << std::endl;
 	forest();
 	break;
+
+}
 default:
+{
 	std::cout << "oh c'mon" << std::endl;
 	break;
 }
-system("pause");
-return 0;
 }
+system("pause");
+
+}
+
 
 void sea() //1
 {
