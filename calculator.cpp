@@ -1,7 +1,7 @@
 #include<iostream>
 #include<string>
 
-void calculator();
+//void calculator();
 void add();
 void minus();
 void times();
