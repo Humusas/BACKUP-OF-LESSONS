@@ -2,8 +2,19 @@
 #include<string>
 #include<ctime>
 
+
 int main()
-{
+{	
+	std::string s;
+
+	std::cout << "Please enter a string : " << std::endl;
+
+	getline(std::cin, s);
+
+	std::cout << s << std::endl;
+	system("pause");
+
+	return 0;
 
 
 	time_t init, final;
@@ -11,23 +22,30 @@ int main()
 	std::string sentence;
 
 
+	
+	std::cout << "type: abracadabra mom" << std::endl;
+	system("pause");
+
 	time(&init);
-	std::cout << "type: abracadabra";
-	std::cout << "\n\n";
-	std::cin >> sentence;
+	//getline(std::cin >> sentence);
+	time(&final);
 
-
-	if (sentence == "abracadabra")
+	if (sentence == "abracadabra mom")
 	{
 		//when correct sentence written
-		time(&final);
+		
 		dif = difftime(final, init);
-		std::cout << "you took" << dif << "seconds";
+		std::cout << "you took" << dif << " seconds"<<std::endl;
 
 	}
 	else
-	{
-		std::cout << "sorry";
+	{ //wrong sentence
+		
+		dif = difftime(final, init);
+
+		std::cout << "you took" << dif << "seconds" << std::endl;;
+
+		std::cout << "sorry" << std::endl;
 
 
 
