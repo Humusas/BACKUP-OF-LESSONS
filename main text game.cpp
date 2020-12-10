@@ -2,11 +2,16 @@
 #include <string>
 #include <ctime>
 #include "inventory.h"
+#include "cars.h"
+
+
+
 
 std::string nickname;
 
 void menu();
 void CreateInventory();
+void wins_body();
 
 
 void garage_loc();		//location 1
@@ -142,6 +147,7 @@ void garage_loc()		//location 1
 
 void engine_loc()		//location 2 where you win engine
 {
+#include<iostream>
 	system("clear");
 	std::cout << "You have decited to pick up an engine" << std::endl;
 	std::cout << "The local spare engines departament asks you to name the stuff you need" << std::endl;
@@ -153,6 +159,7 @@ void engine_loc()		//location 2 where you win engine
 	double dif;
 	std::string sentence1;
 	std::string nothing;
+	char picker;
 
  
 	std::cout << "Tell them, that you want: Porsche Panamera Sport Turismo Turbo S E-Hybrid"<<std::endl; 
@@ -168,19 +175,35 @@ void engine_loc()		//location 2 where you win engine
 	system("pause");
 
 	
-	if (sentence1 == "Porsche Panamera Sport Turismo Turbo S E-Hybrid") 
+	if (sentence1 == "Porsche Panamera Sport Turismo Turbo S E-Hybrid") // - full task
 	{//when correct sentence written
 		
 		if (dif < 20)
 		{//if less then 20 secs
-			std::cout << "Congratulations. You have an engine!" << std::endl;
+			std::cout << "Congratulations. You can have an engine!" << std::endl;
 
+			cars ford;
+			std::cout << "Ford engine has acceleration of " << ford.acceleration() << std::endl;
+			cars toyota;
+			std::cout << "Toyota engine has acceleration of " << toyota.acceleration() << std::endl;
 
-		//	Inventory Item0; quantity 0 + 1
-		//Inventory::SetQuantity(1);
-			//you can stack quantity of engines 
+			std::cout << "Pick one. [F/T]" << std::endl;
+			std::cin>> picker;
+			picker = toupper(picker);
 
+			if (picker == 'F')
+			{
+				std::cout << "You got 2JZ - GTE twin turbo." << std::endl;
+				ford.set_values(1, 276, 0, 250);
+				system("pause");
+			}
 
+			else //picked T
+			{
+				std::cout << "You got 5.4 L 2V Triton Supercharged Intercooled V8. " << std::endl;
+				toyota.set_values(2, 380, 0, 350);
+				system("pause");
+			}
 		}
 		else
 		{//more then 20 secs
@@ -197,7 +220,7 @@ void engine_loc()		//location 2 where you win engine
 	}
 	
 	
-
+	system("clear");
 	menu();
 	std::cout << "Where are you going next?" << std::endl;
 	std::cin >> myLocation;
@@ -207,12 +230,64 @@ void engine_loc()		//location 2 where you win engine
 
 void body_loc()   //location 3
 {
+	int number1;
+	int number2;
+	char random_guess;
+	
 	system("clear");
 	std::cout << "You have decited to find a shell of your project" << std::endl;
 	std::cout << "Task is simple." << std::endl;
 	std::cout << "I will give you a number. Guess if you will get a bigger one"<<std::endl;
 	
+	//minigame 2
+	srand(time(0));				//first time
+	number1 = rand() % 100 + 1;	//creates random number from 1 to 100
+	std::cout << number1 << std::endl;
+	std::cout << "first number is " << number1 << std::endl;
+	std::cout << "Take a guess if the next number is bigger or smaller [B/S]" << std::endl;
+	std::cin >> random_guess;
+	random_guess = toupper(random_guess);
 
+
+	srand(time(0));
+	number2 = rand() % 100 + 1;
+	std::cout << number2 << std::endl;
+
+	bool gold = number1 < number2;	//true
+
+	if (gold) 
+	{
+		if (random_guess == 'B')
+		{
+			std::cout << "Winner, dinner" << std::endl;
+
+			wins_body();
+						
+		}
+		else //guessed S
+		{
+			std::cout << "wrong guess" << std::endl;
+		}
+	}
+
+	else // not gold
+	{
+		if (random_guess == 'S')
+		{
+			std::cout << "Winner, dinner" << std::endl;
+			wins_body();
+
+		}
+
+		else // B
+		{
+			std::cout << "Try Your luck next time" << std::endl;
+		}
+
+	std::cout << std::endl;
+	}
+	system("pause");
+	system("clear");
 	menu();
 	std::cout << "Where are you going next?" << std::endl;
 	std::cin >> myLocation;
@@ -252,90 +327,59 @@ void high_score()
 	std::cout << "=======================" << std::endl;
 	std::cout << "" << std::endl;
 	std::cout << "Under construction" << std::endl;
-	std::cout << "I am not able to zis wright meow" << std::endl;
+	std::cout << "I am not able to do zis wright meow" << std::endl;
 }
 
-//void minigame3()
-/*{
+void wins_body()
+{
+	char car_body;
+	std::cout << "you can pick one of the car bodies you want to take to garage[]" << std::endl;
+	std::cout << "Toyota  Supra A80 (fourth gen) 1993-2002" << std::endl;
+	std::cout << "or" << std::endl;
+	std::cout << "Ford SVT Lightning (1999-2004)" << std::endl;
 
-std::string s;
+	std::cin >> car_body;
+	car_body = toupper(car_body);
 
-std::cout << "Please enter a string : " << std::endl;
-
-getline(std::cin, s);
-
-std::cout << s << std::endl;
-system("pause");
-
-	int i_wanna_play;
-	int random_number;
-	int guess;
-	std::cout << "hello user. i'm gonna get a random number from 1 to 6." << std::endl;
-	std::cout<<"then you gonna guess it, until you get it right. gotcha?"<< std::endl;
-	std::cout << "do you wanna play?" << std::endl;
-	std::cin >> i_wanna_play;
-	if (i_wanna_play==1)
-
-
-		{
-			srand(time(0));
-			random_number = rand() % 6 + 1;	//produces number between 0 and 5 then add 1
-
-			std::cout << "i got a random number" << std::endl;
-			std::cout << "take a guess" << std::endl;
-
-
-		}
-
-	else
+	if (car_body == 'T')
 	{
+		cars toyota;
+			toyota.set_values(1,0,1,1500);
+			std::cout << "a true JDM fan over here" << std::endl;
 
-	return 0;
+	}
+	else //picked ford
+	{
+		cars ford;
+			ford.set_values(1,0,2,2000);
+			std::cout << "you took american pick-up" << std::endl;
 
 	}
 
+
+
 }
-*/
 
 
 
 
 
-/* minigame 2
-void minigame2()
-{
-
-int i_wanna_play;
-	int random_number;
-	int guess;
-
-	if (i_wanna_play==1)
 
 
-		{
-			srand(time(0));
-			random_number = rand() % 6 + 1;	//produces number between 0 and 5 then add 1
 
-			std::cout << "i got a random number" << std::endl;
-			std::cout << "take a guess" << std::endl;
-			std::cin>>guess
-			if (guess==random_number)
-			{
-			you won
-			}
 
-			else
-			{
-			repeat with new number
-			}
-*/
+
+
+
+
+
 
 
 Inventory::Inventory(int quantity, int power, float size, float weight)
 {
 	m_quantity = quantity;	//how many you got
 	m_power = power;	//power output
-	m_size = size;
+	m_size = size;		//engine bay size
 	m_weight = weight; //how much item weights
 	std::cout << "Inventory item created." << std::endl;
 }
@@ -428,4 +472,5 @@ void CreateInventory()
 	}
 	system("pause");
 }
+
 
