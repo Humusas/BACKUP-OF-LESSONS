@@ -15,10 +15,10 @@ float cars::acceleration()
 
 void cars::set_values(int z, float x, int c, float v)
 {
-	quantity + z; 
-	power + x;		
-	size + c;		
-	weight + v;		
+	quantity = z; 
+	power = x;		
+	size = c;		
+	weight = v;		
 }
 
 cars::~cars(void)
@@ -27,5 +27,3 @@ cars::~cars(void)
 
 
 }
-
-

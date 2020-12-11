@@ -2,80 +2,53 @@
 #include <iostream>
 
 
-inventory::Inventory()
+Inventory::Inventory()
 {
-
 	m_value = 0;   //power value
 	m_size=0.0f; //how much iinventory takes up  
 	m_weight=0.0f;		//how much of strengh needed
 	std::string item_name;   //sword
-	std::string m_desciption;
-
-
-
-	std::cout << " inventory item created"std::endl;
-
-	
-
-
-
+	std::string m_description;
+	std::cout << " inventory item created"<<std::endl;
 }
 
-inventory::~Inventory()
+Inventory::~Inventory()
 {
-	std::cout << " inventory item deleted" std::endl;
-
+	std::cout << " inventory item deleted" <<std::endl;
 }
 
-void inventory::sell()
+void Inventory::Sell()
 {
 	//coins value decresices when selling here
-
-
 }
 
-void inventory::display_stats()
+void Inventory::Display_Stats()
 {
-
-	cout power of item<m_power<
-
-
-
+	std::cout << "power of item" < m_power << std::endl;
 }
 
-void inventory::display_name()
+void Inventory::Display_Name()
 {
-
-	cout "descriction of item"<m_descirtion<
-
-
+	std::cout << "descriction of item" < m_description << std::endl;
 }
 
-void inventory::setpower(int power)
+void Inventory::SetPower(int power)
 {
 	m_power = power;
-
 }
 
-void inventory::setvalue(int value)
+void Inventory::SetValue(int value)
 {
 }
 
-void inventory::setsize(int size)
+void Inventory::SetSize(int size)
 {
 }
 
-void inventory::setweight(int weight)
+void Inventory::SetWeight(int weight)
 {
 }
 
-void inventory::setname(std::string name)
+void Inventory::SetName(std::string name)
 {
-}
-
-void inventory::setpower(std::string description)
-{
-
-
-
 }

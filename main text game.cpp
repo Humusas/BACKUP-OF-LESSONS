@@ -3,76 +3,70 @@
 #include <ctime>
 #include "inventory.h"
 #include "cars.h"
-void CreateInventory();
 
 std::string nickname;
 
+//different screens, locations
+void instructions();
 void menu();
-void wins_body();
-void wins_engine();
-
 void garage_loc();		//location 1
 void engine_loc();		//location 2
 void body_loc();		//location 3
 void tune_loc();		//location 4
 void boss_loc();		//location 5
 void high_score();		//location 6
+void travel(int i);	//travel between locations
 
+//playing
 void minigame1();			//location 2 minigame for the car engines
 void minigame2();			//location 3 minigame for the car bodies
+void wins_body();
+void wins_engine();
 
-void travel(int i);	//travel between rooms
+//pair of extra hands
+void inventorisation();
+void ford_merge();
+void toyota_merge();
 
 int myLocation;		//keep track of where the player is
-
 int ford_engine;		//car parts to collect. for quantity counting
 int toyota_engine;
 int ford_body;
 int toyota_body;
+int garage_en_space;
+int garage_bo_space;
 
-int* f_engine = &ford_engine;		//pointers to car parts for quantity counting
+/*int* f_engine = &ford_engine;		//random pointers to car parts for quantity counting, or stats improvement. not working
 int* t_engine = &toyota_engine;
 int* f_body = &ford_body;
-int* t_body = &toyota_body;
-										//stuff from void parts
-int number1;	
-int number2;
+int* t_body = &toyota_body;*/
+
 char THEanswer;
-char random_guess;
+char car_body;
 char picker;
-time_t init, final;
-double dif;
+			//Ford car
+bool lightning = false;
+bool f_body = false;
+bool f_engine = false;
+			//Toyota car
+bool supra = false;
+bool s_body = false;
+bool s_engine = false;
+
 std::string sentence1;
 std::string nothing;
 
 int main()
 {	
-	std::cout << std::endl;
-	std::cout << std::endl;
-	std::cout << "                       ====================================================" << std::endl;
-	std::cout << "                         *                  INSTRUCTIONS                *" << std::endl;
-	std::cout << "                       ====================================================" << std::endl;
-	std::cout << "                          In this game you need to read and type in what" << std::endl;
-	std::cout << "                          You are asked for. Game is not prepared for" << std::endl;
-	std::cout << "                          unexpected input. [] - is used to show You" << std::endl;
-	std::cout << "                          what is requared from You to write. In other" << std::endl;
-	std::cout << "                          cases, read and figure out by Yourself." << std::endl;
-	std::cout << "                          Happy gaming," << std::endl;
-	std::cout << "                          Humusas" << std::endl;
-	std::cout << "                       ****************************************************" << std::endl;
-	std::cout << std::endl;
-	std::cout << std::endl;
-	std::cout << std::endl;	
-	std::cout << std::endl;
-	std::cout << std::endl;
-
-	system("pause");
+	instructions();
 	system("clear");
 
 	ford_body = 0;
 	toyota_body = 0;
 	ford_engine = 0;
 	toyota_engine = 0;
+	garage_en_space=2;
+	garage_bo_space=2;
 
 	std::cout << std::endl;
 	std::cout << "Dear player welcome to the game"<<std::endl;
@@ -97,6 +91,8 @@ int main()
 		{
 			system("clear");
 			std::cout << "Congratz. Garage unlocked." << std::endl;
+			std::cout << "Play wise. You are allowed to have 2 car engines or bodies at same time." << std::endl;
+			system("pause");
 			travel(1);		//arriving at garage. has to be 1 to 6 number while traeling. else starts reading next line
 			system("pause");
 		}
@@ -113,6 +109,8 @@ int main()
 	system("pause");
 }		//  GAME ENDS HERE. PROGRAM SHUTS
 
+
+//NOT A FAN OF ASCII ART
 void menu()
 {
 	std::cout << " " << std::endl;
@@ -170,40 +168,11 @@ void garage_loc()		//location 1
 {
 	system("clear");
 	std::cout << "You are in garage" << std::endl;
-	
-	if (ford_body > 0) //player has some f bodies
-	{
-		std::cout << "You have " << ford_body << " ford bodies laying around in your garage" << std::endl;
-	}
-	else //
-	{
-		//std::cout << "no truck found" << std::endl;
-	}
-	if (toyota_body > 0) //player has toyota body
-	{
-		std::cout << "You have " << toyota_body << " toyota bodies laying around in your garage" << std::endl;
-	}
-	else //
-	{
-		//std::cout << "no car found" << std::endl;
-	}
-	if (ford_engine > 0) //player has some f engine(s)
-	{
-		std::cout << "You have " << ford_engine << " ford engine(s) laying around in your garage" << std::endl;
-	}
-	else //
-	{
-		//std::cout << "no engine found" << std::endl;
-	}
-	if (toyota_engine > 0) //player has toyota engine
-	{
-		std::cout << "You have " << toyota_engine << " toyota engine(s) laying around in your garage" << std::endl;
-	}
-	else //
-	{
-		//std::cout << "no engine found" << std::endl;
-	}
-	system("pause");
+
+	inventorisation();
+	toyota_merge();
+	ford_merge();
+
 	system("clear");
 	menu();
 	std::cout << "Where are you going next?" << std::endl;
@@ -230,10 +199,11 @@ void engine_loc()		//location 2 where you win engine
 void body_loc()   //location 3
 {
 	system("clear");
-	std::cout << "You have decited to find a shell of your project" << std::endl;
-	std::cout << "Task is simple." << std::endl;
-	std::cout << "I will give you a number. Guess if you will get a bigger one"<<std::endl;
-	
+	std::cout << "You have decited to find a shell of your project." << std::endl;
+	std::cout << "Task is simple:" << std::endl;
+	std::cout << "I will give you a random number. Guess if the next will be bigger or smaller one."<<std::endl;
+	std::cout << "The second number is also random." << std::endl;
+
 	minigame2();
 	
 	system("clear");
@@ -246,27 +216,50 @@ void body_loc()   //location 3
 void tune_loc()		//location 4
 {
 	system("clear");
-	std::cout << "You decided to tune your car" << std::endl;
-	
-	
+	std::cout << "You decided to tune your car." << std::endl;
+	std::cout<<std::endl;
+	std::cout << "This part of garage is under construction." << std::endl;
+	std::cout << "Extra pair of hands and physicist are needed." << std::endl;
 	menu();
 	std::cout << "Where are you going next?" << std::endl;
 	std::cin >> myLocation;
 	travel(myLocation);
-
 }
+
 void boss_loc()		//location 5
 {
 	system("clear");
 	std::cout << "You are going to fight a boss" << std::endl;
 
+	if (supra==true || lightning==true) //at least one is true
+	{
+		std::cout << "The big day is today..." << std::endl;
+		std::cout << "You have Your ride ready..." << std::endl;
+		std::cout << "1/4 mile track in front of You is waiting..." << std::endl;
+		system("pause");
+		std::cout << "3!" << std::endl;
+		std::cout << "2!" << std::endl;
+		std::cout << "1!" << std::endl;
+		std::cout << "GO!!!" << std::endl;
+		system("pause");
 
-	std::cout << "You have reached 88, 88 MPH (143, 04 KPH)..." << std::endl;
-	system("pause");
-	system("clear");
-	std::cout << "You went back in time. Don't ask why. . . " << std::endl;
+		std::cout << "You have reached 88, 88 MPH (143, 04 KPH)..." << std::endl;
+		system("pause");
+		system("clear");
+		std::cout << "You went back in time. Don't ask why. . . " << std::endl;
+		std::cout << "There must be something wrong with Your tune." << std::endl;
+	}
+	else
+	{
+		std::cout << "You need a car to participate in a drag race" << std::endl;
+		menu();
+		std::cout << "Where are you going next?" << std::endl;
+		std::cin >> myLocation;
+		travel(myLocation);
+	}
 	system("pause");
 }
+
 void high_score()
 {
 	system("clear");
@@ -280,7 +273,7 @@ void high_score()
 
 void wins_body()
 {
-	char car_body;
+	system("clear");
 	std::cout << "You can pick one of the car bodies you want to take to garage[T/F]" << std::endl;
 	std::cout << "Toyota  Supra A80 (fourth gen) 1993-2002" << std::endl;
 	std::cout << "Or" << std::endl;
@@ -291,12 +284,11 @@ void wins_body()
 
 	if (car_body == 'T')
 	{
-		++toyota_engine;
+		++toyota_body;
 		cars toyota;
 			toyota.set_values(1,0,1,1500);
 			std::cout << "a true JDM fan over here" << std::endl;
-			std::cout << toyota_body << std::endl;
-
+		-- garage_bo_space;
 	}
 	else //picked ford
 	{
@@ -304,13 +296,18 @@ void wins_body()
 		cars ford;
 			ford.set_values(1,0,2,2000);
 			std::cout << "you took american pick-up" << std::endl;
-			std::cout << ford_body << std::endl;
+		--garage_bo_space;
 	}
 }
 
+//TAKE A LOOK. TYPING MINIGAME
 void minigame1()
 {
+	time_t init;
+	time_t final;
+	double dif;
 	std::cout << "Tell them, that you want: Porsche Panamera Sport Turismo Turbo S E-Hybrid" << std::endl;
+	//needs extra list of car names for random pick of sentence. array of names should do the trick
 	system("pause");
 	std::cout << "3.2.1. GO!" << std::endl;
 	getline(std::cin, nothing); std::cout << std::endl;
@@ -324,11 +321,17 @@ void minigame1()
 
 	if (sentence1 == "Porsche Panamera Sport Turismo Turbo S E-Hybrid") // - full task
 	{//when correct sentence written
-
 		if (dif < 20)
 		{//if less then 20 secs
 			std::cout << "Congratulations. You can have an engine!" << std::endl;
-			wins_engine();
+			if (garage_en_space > 0) //if you have space for engine
+			{
+				wins_engine();
+			}
+			else
+			{
+				std::cout << "No more space for extra engine" << std::endl;
+			}
 		}
 		else
 		{//more then 20 secs
@@ -348,9 +351,9 @@ void minigame1()
 void wins_engine()
 {
 	cars ford;
-	std::cout << "Ford engine has acceleration of " << ford.acceleration() << std::endl;
+	std::cout << "Ford engine has 610 Nm of torque" << std::endl; //ford.acceleration() << std::endl; 
 	cars toyota;
-	std::cout << "Toyota engine has acceleration of " << toyota.acceleration() << std::endl;
+	std::cout << "Toyota engine has 431 Nm of torque" << std::endl; //toyota.acceleration() << std::endl;
 
 	std::cout << "Pick one. [F/T]" << std::endl;
 	std::cin >> picker;
@@ -360,65 +363,202 @@ void wins_engine()
 	{
 		int* f_engine = &ford_engine;		//pointers to car parts for quantity counting
 		int* t_engine = &toyota_engine;
-		
+		++ford_engine;
+		cars ford;
+		std::cout << "You got 5.4 L 2V Triton Supercharged Intercooled V8. " << std::endl;
 
-		std::cout << "You got 2JZ - GTE twin turbo." << std::endl;
 		ford.set_values(1, 276, 0, 250);
 		std::cout << "you have " <<ford_engine<< " engine(s)"<< std::endl;
+		--garage_en_space;
 		system("pause");
 	}
 
 	else //picked T
 	{
+		std::cout << "You got 2JZ - GTE twin turbo." << std::endl;
+		++toyota_engine;
+		cars toyota;
 		
-		std::cout << "You got 5.4 L 2V Triton Supercharged Intercooled V8. " << std::endl;
+		std::cout << "a true JDM fan over here" << std::endl;
+		--garage_en_space;
+
 		toyota.set_values(2, 380, 0, 350);
 		system("pause");
 	}
 }
 
+//TAKE A LOOK. I DID RANDOM NUMBERS MINIGAME
 void minigame2()
+{	
+	char random_guess;
+	int number1;
+	int number2;
+
+		srand(time(0));				//first time
+		number1 = rand() % 100 + 1;	//creates random number from 1 to 100
+		std::cout << number1 << std::endl;
+		std::cout << "first number is " << number1 << std::endl;
+		std::cout << "Take a guess if the next number is bigger or smaller [B/S]" << std::endl;
+		std::cin >> random_guess;
+		random_guess = toupper(random_guess);
+
+		srand(time(0));					//second random number
+		number2 = rand() % 100 + 1;
+		std::cout << number2 << std::endl;
+
+		bool gold = number1 < number2;	//true
+
+		if (gold)	//if true
+		{
+			if (random_guess == 'B')
+			{
+				std::cout << "Winner, dinner" << std::endl;
+				if (garage_bo_space > 0)
+				{
+					wins_body();
+				}
+				else
+				{
+					std::cout << "No garage space left" << std::endl;
+				}
+			}
+			else //guessed S
+			{
+				std::cout << "Wrong guess. Try again." << std::endl;
+			}
+		}
+		else // not gold
+		{
+			if (random_guess == 'S')
+			{
+				std::cout << "Winner, dinner" << std::endl;
+				if (garage_bo_space > 0)
+				{
+					wins_body();
+				}
+				else
+				{
+					std::cout << "No garage space left" << std::endl;
+				}
+			}
+			else // B
+			{
+				std::cout << "Try Your luck next time" << std::endl;
+			}
+			std::cout << std::endl;
+		}
+	system("pause");
+}	
+
+void inventorisation()
 {
-	srand(time(0));				//first time
-	number1 = rand() % 100 + 1;	//creates random number from 1 to 100
-	std::cout << number1 << std::endl;
-	std::cout << "first number is " << number1 << std::endl;
-	std::cout << "Take a guess if the next number is bigger or smaller [B/S]" << std::endl;
-	std::cin >> random_guess;
-	random_guess = toupper(random_guess);
-
-	srand(time(0));
-	number2 = rand() % 100 + 1;
-	std::cout << number2 << std::endl;
-
-	bool gold = number1 < number2;	//true
-
-	if (gold)
+	if (ford_body > 0) //player has some f bodies
 	{
-		if (random_guess == 'B')
-		{
-			std::cout << "Winner, dinner" << std::endl;
-			wins_body();
-		}
-		else //guessed S
-		{
-			std::cout << "wrong guess" << std::endl;
-		}
+		std::cout << "You have " << ford_body << " Ford bodies laying around in your garage" << std::endl;
+	}
+	else //
+	{
+		//std::cout << "no truck found" << std::endl;
+	}
+	if (toyota_body > 0) //player has toyota body
+	{
+		std::cout << "You have " << toyota_body << " Toyota bodies laying around in your garage" << std::endl;
+	}
+	else //
+	{
+		//std::cout << "no car found" << std::endl;
+	}
+	if (ford_engine > 0) //player has some f engine(s)
+	{
+		std::cout << "You have " << ford_engine << " Ford engine(s) laying around in your garage" << std::endl;
+	}
+	else //
+	{
+		//std::cout << "no engine found" << std::endl;
+	}
+	if (toyota_engine > 0) //player has toyota engine
+	{
+		std::cout << "You have " << toyota_engine << " Toyota engine(s) laying around in your garage" << std::endl;
+	}
+	else //
+	{
+		//std::cout << "no engine found" << std::endl;
+	}
+	system("pause");
+}
+
+void instructions()
+{
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << "                       ====================================================" << std::endl;
+	std::cout << "                         *                  INSTRUCTIONS                *" << std::endl;
+	std::cout << "                       ====================================================" << std::endl;
+	std::cout << "                          In this game you need to read and type in what" << std::endl;
+	std::cout << "                          You are asked for. Game is not prepared for" << std::endl;
+	std::cout << "                          unexpected input. [] - is used to show You" << std::endl;
+	std::cout << "                          what is requared from You to write. In other" << std::endl;
+	std::cout << "                          cases, read and figure out by Yourself." << std::endl;
+	std::cout << "                          Happy gaming," << std::endl;
+	std::cout << "                          Humusas" << std::endl;
+	std::cout << "                       ****************************************************" << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
+	system("pause");
+}
+
+void ford_merge()
+{
+	if (ford_body > 0 && ford_engine > 0) //if both are true
+	{
+		lightning = true;
+	}
+	else
+	{
+		lightning = false;
 	}
 
-	else // not gold
+	if (lightning == true)
 	{
-		if (random_guess == 'S')
-		{
-			std::cout << "Winner, dinner" << std::endl;
-			wins_body();
-		}
-		else // B
-		{
-			std::cout << "Try Your luck next time" << std::endl;
-		}
-
+		std::cout << "You have FORD LIGHTNING" << std::endl;
+		--ford_engine;
+		--ford_body;
+	}
+	else //no lightning
+	{
 		std::cout << std::endl;
+		std::cout << "Go get some more Ford parts" << std::endl;
+		std::cout << std::endl;
+	}
+	system("pause");
+}
+
+void toyota_merge()
+{
+	if (toyota_body > 0 && toyota_engine > 0)
+	{
+		supra = true;
+	}
+	else
+	{
+		supra = false;
+	}
+
+	if (supra == true)
+	{
+		std::cout << "You have TOYOTA SUPRA" << std::endl;
+		--toyota_engine;
+		--toyota_body;
+	}
+	else //no supra
+	{
+		std::cout << std::endl;
+		std::cout << "Go get some more toyota parts" << std::endl;
+		std::cout << std::endl;
+
 	}
 	system("pause");
 }
@@ -427,12 +567,8 @@ void minigame2()
 
 
 
-
-
-
-
-
-
+// had to do inventory or class thingy, but got lost in space...
+/*
 Inventory::Inventory(int quantity, int power, float size, float weight)
 {
 	m_quantity = quantity;	//how many you got
@@ -530,5 +666,6 @@ void CreateInventory()
 	}
 	system("pause");
 }
+*/
 
 
