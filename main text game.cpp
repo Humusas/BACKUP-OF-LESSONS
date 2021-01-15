@@ -2,7 +2,7 @@
 #include <string>
 #include <ctime>
 #include "inventory.h"
-#include "cars.h"
+#include "car.h"
 
 std::string nickname;
 
@@ -269,6 +269,11 @@ void high_score()
 	std::cout << "" << std::endl;
 	std::cout << "Under construction" << std::endl;
 	std::cout << "I am not able to do zis wright meow" << std::endl;
+
+	menu();
+	std::cout << "Where are you going next?" << std::endl;
+	std::cin >> myLocation;
+	travel(myLocation);
 }
 
 void wins_body()
@@ -285,7 +290,7 @@ void wins_body()
 	if (car_body == 'T')
 	{
 		++toyota_body;
-		cars toyota;
+		car toyota;
 			toyota.set_values(1,0,1,1500);
 			std::cout << "a true JDM fan over here" << std::endl;
 		-- garage_bo_space;
@@ -293,7 +298,7 @@ void wins_body()
 	else //picked ford
 	{
 		++ford_body;
-		cars ford;
+		car ford;
 			ford.set_values(1,0,2,2000);
 			std::cout << "you took american pick-up" << std::endl;
 		--garage_bo_space;
@@ -350,9 +355,9 @@ void minigame1()
 
 void wins_engine()
 {
-	cars ford;
+	car ford;
 	std::cout << "Ford engine has 610 Nm of torque" << std::endl; //ford.acceleration() << std::endl; 
-	cars toyota;
+	car toyota;
 	std::cout << "Toyota engine has 431 Nm of torque" << std::endl; //toyota.acceleration() << std::endl;
 
 	std::cout << "Pick one. [F/T]" << std::endl;
@@ -364,7 +369,7 @@ void wins_engine()
 		int* f_engine = &ford_engine;		//pointers to car parts for quantity counting
 		int* t_engine = &toyota_engine;
 		++ford_engine;
-		cars ford;
+		car ford;
 		std::cout << "You got 5.4 L 2V Triton Supercharged Intercooled V8. " << std::endl;
 
 		ford.set_values(1, 276, 0, 250);
@@ -377,7 +382,7 @@ void wins_engine()
 	{
 		std::cout << "You got 2JZ - GTE twin turbo." << std::endl;
 		++toyota_engine;
-		cars toyota;
+		car toyota;
 		
 		std::cout << "a true JDM fan over here" << std::endl;
 		--garage_en_space;
