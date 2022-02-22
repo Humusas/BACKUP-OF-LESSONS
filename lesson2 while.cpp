@@ -19,6 +19,7 @@ int main()
 		std::cout << m << ", ";
 		m++;
 	}while (m < 20);
+
 	std::cout << std::endl;
 	system("pause");
 	

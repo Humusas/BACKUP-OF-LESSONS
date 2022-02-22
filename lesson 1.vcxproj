@@ -19,7 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="array.cpp" />
+    <ClCompile Include="calculator.cpp" />
+    <ClCompile Include="can you count game.cpp" />
+    <ClCompile Include="car.cpp" />
+    <ClCompile Include="classes and fighting.cpp" />
     <ClCompile Include="Fiona%27s challenge.cpp" />
+    <ClCompile Include="guess the number game.cpp" />
+    <ClCompile Include="inventory.cpp" />
+    <ClCompile Include="lesson 2 else if.cpp" />
+    <ClCompile Include="lesson 2 for.cpp" />
+    <ClCompile Include="lesson 7 ctime.cpp" />
+    <ClCompile Include="lesson 8.cpp" />
+    <ClCompile Include="lesson1 Main.cpp" />
+    <ClCompile Include="lesson2 while.cpp" />
+    <ClCompile Include="lesson2.1 switch.cpp" />
+    <ClCompile Include="main text game.cpp" />
+    <ClCompile Include="pointer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

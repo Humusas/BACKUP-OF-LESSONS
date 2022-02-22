@@ -28,13 +28,9 @@ int main()
 	}
 	std::cout << "that's right!" << std::endl;
 	
-
-
-	
 	system("pause");
 
 }
-
 
 void random_number(int &container)
 {
